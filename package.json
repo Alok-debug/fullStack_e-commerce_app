@@ -1,31 +1,22 @@
 {
-  "name": "ecommerce",
+  "name": "ecommerce_backend",
   "version": "1.0.0",
-  "description": "this is backend for e-commerce project",
-  "main": "backend/server.js",
+  "description": "This is backend for ecommerce_backend project",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alok-debug/fullStack_e-commerce_app.git"
+    "start": "nodemon backend/app.js",
+    "start-server": "node backend/app.js"
   },
   "author": "Alok Kumar",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Alok-debug/fullStack_e-commerce_app/issues"
-  },
-  "homepage": "https://github.com/Alok-debug/fullStack_e-commerce_app#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.25.3"
-  },
   "devDependencies": {
     "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.18.2",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.22.5"
   }
 }
