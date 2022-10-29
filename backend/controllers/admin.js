@@ -6,13 +6,14 @@ exports.getAddProduct = async (req, res, next) => {
 };
 
 exports.postAddProduct = async (req, res, next) => {
-  const product = await Product.create({
-    title: req.body.title,
-    price: req.body.price,
-    imageUrl: req.body.imageUrl,
-    description:req.body.description,
-    userId: req.user.id,
-  });
+  // const product = await Product.create({
+  //   title: req.body.title,
+  //   price: req.body.price,
+  //   imageUrl: req.body.imageUrl,
+  //   description:req.body.description,
+  //   userId: req.user.id,
+  // });
+  const product= await req.user.createProduct(req.body); // <--sequelised object with magic of association 
   res.status(201).json(product);
 };
 
