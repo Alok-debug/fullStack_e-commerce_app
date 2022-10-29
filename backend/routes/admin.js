@@ -15,7 +15,7 @@ router.post('/add-product', adminController.postAddProduct); //verified
 
 router.get('/edit-product/:productId', adminController.getEditProduct);
 
-router.post('/edit-product', adminController.postEditProduct);
+router.put('/edit-product/:productId', adminController.updateEditProduct);
 
 router.delete('/delete-product/:productId', adminController.postDeleteProduct); //verified
 

@@ -11,15 +11,15 @@ exports.postAddProduct = async(req, res, next) => {
 };
 
 exports.getEditProduct = async(req, res, next) => {
-  const editMode = req.query.edit;
-  if (!editMode) {
-    return res.json({
-      success: false,
-      message: "edit query is not passed"
-    });
-  }
+  // const editMode = req.query.edit;
+  // if (!editMode) {
+  //   return res.json({
+  //     success: false,
+  //     message: "edit query is not passed"
+  //   });
+  // }
   const prodId = req.params.productId;
-  const product = await Product.findById(prodId);
+  const product = await Product.findByPk(prodId);
   if (!product) {
     return res.json({
       success: false,
@@ -29,8 +29,8 @@ exports.getEditProduct = async(req, res, next) => {
   res.status(200).json(product); 
 };
 
-exports.postEditProduct = (req, res, next) => {
-  const prodId = req.param.productId;
+exports.updateEditProduct = (req, res, next) => {
+  const prodId = req.params.productId;
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
@@ -46,7 +46,7 @@ exports.postEditProduct = (req, res, next) => {
     })
     .then(result => {
       console.log('UPDATED PRODUCT!');
-      res.redirect('/admin/products');
+      res.status(200).json(result)
     })
     .catch(err => console.log(err));
 };
