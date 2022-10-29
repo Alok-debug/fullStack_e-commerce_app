@@ -5,8 +5,14 @@ exports.getAddProduct = async (req, res, next) => {
   res.status(200).json(products);
 };
 
-exports.postAddProduct = async(req, res, next) => {
-  const product = await Product.create(req.body);
+exports.postAddProduct = async (req, res, next) => {
+  const product = await Product.create({
+    title: req.body.title,
+    price: req.body.price,
+    imageUrl: req.body.imageUrl,
+    description:req.body.description,
+    userId: req.user.id,
+  });
   res.status(201).json(product);
 };
 
