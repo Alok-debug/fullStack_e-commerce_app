@@ -59,7 +59,7 @@ exports.updateEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = async(req, res, next) => {
-  const products = await Product.findAll();
+  const products = await req.user.getProducts(); //instead of Products.findAll()
   res.status(200).json(products);
 };
 
