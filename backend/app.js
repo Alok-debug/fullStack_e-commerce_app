@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const sequelize = require('./utils/database');
 
 const app = express();
 
+app.use(cors());
 
 const adminRoutes = require('./routes/admin');
 //const shopRoutes = require('./routes/shop');
