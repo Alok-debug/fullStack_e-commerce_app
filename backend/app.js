@@ -47,8 +47,8 @@ Order.belongsToMany(Product, { through: OrderItem });
 
 
 sequelize
-  .sync({force:true})// <------Forced to over write the previous tables
-  // .sync()
+  // .sync({force:true})// <------Forced to over write the previous tables
+  .sync()
   .then(result => {
     return User.findByPk(1);
   })
