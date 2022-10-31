@@ -3,18 +3,41 @@ const Product = require('../models/product');
 const items_perPage = 4;
 
 exports.getProducts = async (req, res, next) => {
+  if (!req.query.page) {
+    console.log('in if  block')
+    return res.status(400).json({
+      success: false,
+      message: " please send query params for page number"
+    })
+  }
+  try {
   const page = req.query.page;
   const offset = (page - 1) * items_perPage;
   //console.log('getProducts is callaed',offset);
   const products = await Product.findAll({offset:offset, limit:items_perPage});
   res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: `some error occured : ${err}`
+    })
+  }
+  
 };
 
 exports.getCart = async (req, res, next) => {
-  const cart = await req.user.getCart();
-  // console.log(cart);
-  const cartProducts = await cart.getProducts();
-  res.status(200).json(cartProducts);
+  try {
+    const cart = await req.user.getCart();
+    // console.log(cart);
+    const cartProducts = await cart.getProducts();
+    res.status(200).json(cartProducts);
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message:"Not able to fetch the cart item"
+    })
+  }
+  
 };
 
 exports.postCart = (req, res, next) => {
@@ -80,13 +103,16 @@ exports.postOrder = (req, res, next) => {
   req.user
     .getCart()
     .then(cart => {
+      
       fetchedCart = cart;
       return cart.getProducts();
     })
     .then(products => {
+      console.log(products);
       return req.user
         .createOrder()
         .then(order => {
+          console.log('order created');
           return order.addProducts(
             products.map(product => {
               product.orderItem = { quantity: product.cartItem.quantity };
@@ -96,7 +122,7 @@ exports.postOrder = (req, res, next) => {
         .catch(err => console.log(err))
     })
     .then(results => {
-      console.log(results);
+      //console.log(results);
       return fetchedCart.setProducts(null);
     })
     .then(emptyCartData => {
